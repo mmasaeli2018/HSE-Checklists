@@ -1,0 +1,17 @@
+[
+  {
+    "name": "چک‌لیست سالن تولید",
+    "password": "1234",
+    "link": "https://example.com/form1"
+  },
+  {
+    "name": "چک‌لیست انبار",
+    "password": "abcd",
+    "link": "https://example.com/form2"
+  },
+  {
+    "name": "چک‌لیست دفتر",
+    "password": "5678",
+    "link": "https://example.com/form3"
+  }
+]
