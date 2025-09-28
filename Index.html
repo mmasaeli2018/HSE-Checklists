@@ -32,56 +32,51 @@
   </div>
 
   <script>
-  let checklists = [];
+    // داده‌های چک‌لیست‌ها داخل خود HTML
+    const checklists = [
+      { name: "چک‌لیست سالن تولید", password: "1234", link: "https://example.com/form1" },
+      { name: "چک‌لیست انبار", password: "abcd", link: "https://example.com/form2" },
+      { name: "چک‌لیست دفتر", password: "5678", link: "https://example.com/form3" }
+    ];
 
-  // بارگذاری JSON
-  async function loadChecklists() {
-    try {
-      const response = await fetch('checklists.json');
-      checklists = await response.json();
-      populateDropdown();
-    } catch (err) {
-      console.error('خطا در خواندن فایل JSON', err);
-      document.getElementById('result').innerHTML = '<div class="err">خطا در بارگذاری چک‌لیست‌ها</div>';
-    }
-  }
-
-  function populateDropdown() {
-    const sel = document.getElementById('checklistSelect');
-    sel.innerHTML = '';
-    if (!checklists.length) {
-      const opt = document.createElement('option');
-      opt.text = 'هیچ چک‌لیستی یافت نشد';
-      sel.add(opt);
-      return;
-    }
-    checklists.forEach(c => {
-      const o = document.createElement('option');
-      o.text = c.name;
-      o.value = c.name;
-      sel.add(o);
-    });
-  }
-
-  function submitForm() {
-    const sel = document.getElementById('checklistSelect');
-    const checklistName = sel.value;
-    const pwd = document.getElementById('pwd').value || '';
-    const resultDiv = document.getElementById('result');
-
-    const selected = checklists.find(c => c.name === checklistName);
-
-    if (!selected) {
-      resultDiv.innerHTML = '<div class="err">چک‌لیست یافت نشد</div>';
-      return;
+    function populateDropdown() {
+      const sel = document.getElementById('checklistSelect');
+      sel.innerHTML = '';
+      if (!checklists.length) {
+        const opt = document.createElement('option');
+        opt.text = 'هیچ چک‌لیستی یافت نشد';
+        sel.add(opt);
+        return;
+      }
+      checklists.forEach(c => {
+        const o = document.createElement('option');
+        o.text = c.name;
+        o.value = c.name;
+        sel.add(o);
+      });
     }
 
-    if (selected.password === pwd) {
-      resultDiv.innerHTML = `<div class="ok">✅ لینک چک‌لیست:<br><a class="link" target="_blank" href="${selected.link}">${selected.link}</a></div>`;
-    } else {
-      resultDiv.innerHTML = '<div class="err">❌ رمز اشتباه است</div>';
-    }
-  }
+    function submitForm() {
+      const sel = document.getElementById('checklistSelect');
+      const checklistName = sel.value;
+      const pwd = document.getElementById('pwd').value || '';
+      const resultDiv = document.getElementById('result');
 
-  document.addEventListener('DOMContentLoaded', loadChecklists);
-</script>
+      const selected = checklists.find(c => c.name === checklistName);
+
+      if (!selected) {
+        resultDiv.innerHTML = '<div class="err">چک‌لیست یافت نشد</div>';
+        return;
+      }
+
+      if (selected.password === pwd) {
+        resultDiv.innerHTML = `<div class="ok">✅ لینک چک‌لیست:<br><a class="link" target="_blank" href="${selected.link}">${selected.link}</a></div>`;
+      } else {
+        resultDiv.innerHTML = '<div class="err">❌ رمز اشتباه است</div>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', populateDropdown);
+  </script>
+</body>
+</html>
